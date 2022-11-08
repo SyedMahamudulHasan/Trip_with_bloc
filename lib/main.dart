@@ -43,13 +43,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TripBloc(
-        RepositoryProvider.of<TripRepository>(context),
-      )..add(
+          //RepositoryProvider.of<TripRepository>(context),
+          )
+        ..add(
           LoadTripEvent(),
         ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Trips"),
+          title: const Text("Trips"),
         ),
         body: BlocBuilder<TripBloc, TripState>(
           builder: (context, state) {
