@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo/data/repository/trip_provider.dart';
 
 @immutable
 abstract class TripEvent extends Equatable {
@@ -8,5 +10,7 @@ abstract class TripEvent extends Equatable {
 
 class LoadTripEvent extends TripEvent {
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
+
+  //final trips = TripProvider()..getTrips();
 }

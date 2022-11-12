@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/blocs/app_bloc.dart';
 import 'package:todo/blocs/app_event.dart';
 import 'package:todo/blocs/app_state.dart';
-import 'package:todo/data/repogitori/repository.dart';
+import 'package:todo/data/model/trip_model.dart';
+import 'package:todo/data/repository/trip_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: RepositoryProvider(
-          create: ((context) => TripRepository()),
+          create: ((context) => TripProvider()),
           child: const MyHomePage(title: 'Flutter Demo Home Page')),
     );
   }
@@ -43,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TripBloc(
-        RepositoryProvider.of<TripRepository>(context),
+        RepositoryProvider.of<TripProvider>(context),
       )..add(
           LoadTripEvent(),
         ),
@@ -59,8 +60,15 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             }
             if (state is TripLoadedState) {
-              return const Center(
-                child: Text("Data loaded bhai"),
+              final List<TripModel> trips = state.trips;
+              return ListView.builder(
+                itemCount: trips.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(trips[index].tripInformation!.fullName!),
+                    subtitle: Text(trips[index].tripStatus!),
+                  );
+                },
               );
             }
             return Container();
