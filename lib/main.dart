@@ -43,9 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TripBloc(
-          //RepositoryProvider.of<TripRepository>(context),
-          )
-        ..add(
+        RepositoryProvider.of<TripRepository>(context),
+      )..add(
           LoadTripEvent(),
         ),
       child: Scaffold(
@@ -57,6 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
             if (state is TripLoadingState) {
               return const Center(
                 child: CircularProgressIndicator(),
+              );
+            }
+            if (state is TripLoadedState) {
+              return const Center(
+                child: Text("Data loaded bhai"),
               );
             }
             return Container();
