@@ -59,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: CircularProgressIndicator(),
               );
             }
+
             if (state is TripLoadedState) {
               final List<TripModel> trips = state.trips;
               return ListView.builder(
